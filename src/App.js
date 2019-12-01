@@ -1,36 +1,60 @@
-import React from 'react';
+import React,{Component} from 'react';
 import './bulma.css';
 import './App.css'
 import Temp from './components/Temp'
 
-function App() {
+class App extends Component {
 
-  let humidity = 50
+  constructor() {
+    super()
 
-  return (
-    <div className="App">
-      <section className="hero">
-        <div className="hero-body">
+    this.state={
+      humidity:0,
+      temperature:0
+    }
+  }
+
+
+  componentDidMount() {
+
+    let getData = async () => {
+
+      let response = await fetch('http://camperserver.herokuapp.com/latest', {
+        method: 'GET',
+        mode: 'cors'
+      })
+      console.log(response)
+    }
+
+    getData()
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <section className="hero">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">
+                Camper Temperature
+              </h1>
+              <h2 className="subtitle">
+                Current Camper Temperatures:
+              </h2>
+            </div>
+          </div>
+        </section>
+        <section className="section">
           <div className="container">
-            <h1 className="title">
-              Camper Temperature
-      </h1>
-            <h2 className="subtitle">
-              Current Camper Temperatures:
-      </h2>
+            <Temp />
+            <div>
+              Relative Humidity: {this.state.humidity} %
           </div>
-        </div>
-      </section>
-      <section className="section">
-        <div className="container">
-          <Temp />
-          <div>
-            Relative Humidity: {humidity} %
           </div>
-        </div>
-      </section>
-    </div>
-  );
+        </section>
+      </div>
+    );
+  }
 }
 
 export default App;
