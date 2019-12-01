@@ -5,8 +5,8 @@ class Temp extends Component {
     constructor(props){
         super(props)
 
+        console.log("temp", props.temp)
         this.state = {
-            temp: props.temp,
             isFarenheit: false,
             limitTemp: 26
         }
@@ -19,9 +19,9 @@ class Temp extends Component {
 
     render(){
 
-        let displayTemp = this.state.temp + "°C"
+        let displayTemp = this.props.temp + "°C"
         if(this.state.isFarenheit){
-            displayTemp=(this.state.temp * 9 / 5 + 32).toString()+"°F"
+            displayTemp=(this.props.temp * 9 / 5 + 32).toString()+"°F"
         }
 
         let limitStyle

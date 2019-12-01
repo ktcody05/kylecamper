@@ -25,7 +25,7 @@ class App extends Component {
       })
 
       let data = await response.json()
-
+      console.log("app", data.temp)
       this.setState({
         humidity: data.humidity,
         temperature: data.temp})
@@ -45,7 +45,7 @@ class App extends Component {
                 Camper Temperature
               </h1>
               <h2 className="subtitle">
-                Current Camper Temperatures:
+                Current Camper Temperature:
               </h2>
             </div>
           </div>
