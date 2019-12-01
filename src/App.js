@@ -19,7 +19,7 @@ class App extends Component {
 
     let getData = async () => {
 
-      let response = await fetch('http://camperserver.herokuapp.com/latest', {
+      let response = await fetch('https://camperserver.herokuapp.com/latest', {
         method: 'GET',
         mode: 'cors'
       })
