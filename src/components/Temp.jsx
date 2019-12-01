@@ -21,7 +21,7 @@ class Temp extends Component {
 
         let displayTemp = this.props.temp + "°C"
         if(this.state.isFarenheit){
-            displayTemp=(this.props.temp * 9 / 5 + 32).toString()+"°F"
+            displayTemp=(this.props.temp * 9 / 5 + 32).toFixed(1).toString()+"°F"
         }
 
         let limitStyle
