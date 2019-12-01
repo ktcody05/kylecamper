@@ -23,6 +23,12 @@ class App extends Component {
         method: 'GET',
         mode: 'cors'
       })
+
+      let data = await response.json()
+
+      this.setState({
+        humidity: data.humidity,
+        temperature: data.temp})
       console.log(response)
     }
 
@@ -46,7 +52,7 @@ class App extends Component {
         </section>
         <section className="section">
           <div className="container">
-            <Temp />
+            <Temp temp={this.state.temperature} />
             <div>
               Relative Humidity: {this.state.humidity} %
           </div>

@@ -6,13 +6,12 @@ class Temp extends Component {
         super(props)
 
         this.state = {
-            temp: "27",
+            temp: props.temp,
             isFarenheit: false,
             limitTemp: 26
         }
     }
     handleToggleFarenheit = () => {
-        console.log('Click')
         this.setState({
             isFarenheit: !this.state.isFarenheit
         })
