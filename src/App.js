@@ -36,6 +36,7 @@ class App extends Component {
       console.log(data)
     }
 
+    getData()
     setInterval(()=>getData(),3000)
   }
 
