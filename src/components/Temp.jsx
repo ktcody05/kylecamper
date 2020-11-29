@@ -7,8 +7,8 @@ class Temp extends Component {
 
         console.log("temp", props.temp)
         this.state = {
-            isFarenheit: false,
-            limitTemp: 26
+            isFarenheit: true,
+            limitTempCelsius: 26
         }
     }
     handleToggleFarenheit = () => {
@@ -25,7 +25,7 @@ class Temp extends Component {
         }
 
         let limitStyle
-        if(this.state.temp > this.state.limitTemp )
+        if(this.state.temp > this.state.limitTempCelsius )
             limitStyle = "red"
 
         return(
