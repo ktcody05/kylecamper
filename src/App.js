@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import './bulma.css';
 import './App.css'
 import Temp from './components/Temp'
+import Battery from './components/Battery'
 
 class App extends Component {
 
@@ -28,11 +29,14 @@ class App extends Component {
       console.log("app", data.temp)
       this.setState({
         humidity: data.humidity,
-        temperature: data.temp})
-      console.log(response)
+        temperature: data.temp,
+        onBattery: data.onBattery
+      })
+
+      console.log(data)
     }
 
-    getData()
+    setInterval(()=>getData(),3000)
   }
 
   render() {
@@ -55,7 +59,8 @@ class App extends Component {
             <Temp temp={this.state.temperature} />
             <div>
               Relative Humidity: {this.state.humidity} %
-          </div>
+            </div>
+            <Battery onBattery={this.state.onBattery} />
           </div>
         </section>
       </div>
