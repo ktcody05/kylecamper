@@ -8,27 +8,41 @@ class Target extends Component {
 
         this.state = {
             targetTemp: props.targetTemp,
+            requestedTemp: props.targetTemp
         }
     }
 
-    async handleSubmit() {
-        let targetTemp = document.getElementById('targetTemp').value
-        let password = document.getElementById('password').value
-        console.log(targetTemp)
-        let response = await fetch(`https://camperserver.herokuapp.com:5555/targetTemp?=${targetTemp}&key=${password}`, {
+    handleIncrease(){
+        let amount=this.props.isFarenheit?(5/9):1
+        let newTemp = parseFloat(this.state.requestedTemp)+amount
+        this.requestTarget(newTemp)
+        this.setState({requestedTemp:newTemp})
+    }
+
+    handleDecrease(){
+        let amount=this.props.isFarenheit?(5/9):1
+        let newTemp = parseFloat(this.state.requestedTemp)-amount
+        this.requestTarget(newTemp)
+        this.setState({requestedTemp:newTemp})
+    }
+
+    async requestTarget(newTemp) {
+        console.log(newTemp)
+        let response = await fetch(`https://camperserver.herokuapp.com/targetTemp?targetTemp=${newTemp}&key=${this.props.password}`, {
             method: 'POST',
-            mode: 'cors'
+            mode: 'no-cors'
         })
         console.log(response)
     }
 
     render() {
+        let isHidden=this.props.hidden?'is-hidden':''
         return (
             <div className="columns">
                 <div className="column is-4" > Target Temp: <TemperatureDisplay isFarenheit={this.props.isFarenheit} temp={this.props.targetTemp} /> </div>
-                <div><input id='targetTemp' className="input" type="text" placeholder="Target Temp" /></div>
-                <div><input id='password' className="input" type="password" placeholder="Password" /></div>
-                <button onClick={() => this.handleSubmit()} className='button'>Submit</button>
+                <button onClick={() => this.handleDecrease()} className={`button is-small ${isHidden}`}>-</button>
+                <TemperatureDisplay temp={this.state.requestedTemp} isFarenheit={this.props.isFarenheit} />
+                <button onClick={() => this.handleIncrease()} className={`button is-small ${isHidden}`}>+</button>
             </div>
         )
     }

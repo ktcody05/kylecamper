@@ -12,7 +12,7 @@ class TemperatureDisplay extends Component {
 
     render(){
 
-        let displayTemp = this.props.temp + "°C"
+        let displayTemp = parseFloat(this.props.temp).toFixed(2).toString()+ "°C"
         if(this.props.isFarenheit){
             displayTemp=(this.props.temp * 9 / 5 + 32).toFixed(1).toString()+"°F"
         }

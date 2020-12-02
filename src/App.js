@@ -1,61 +1,80 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import './bulma.css';
 import './App.css'
 import CurrentTemperature from './components/CurrentTemperature'
 import Battery from './components/Battery'
 import ToggleFC from './components/ToggleFC';
 import Target from './components/Target'
+const crypto = require('crypto')
 
 class App extends Component {
 
   constructor() {
     super()
 
-    this.state={
-      humidity:0,
-      temperature:0,
-      isFarenheit: true
+    this.state = {
+      humidity: 0,
+      temperature: 0,
+      isFarenheit: true,
+      hasLoaded: false,
+      hideControls: true,
+      password: ''
     }
   }
+  handlePassword = (e) =>{
+    let hash = crypto.createHash('md5').update(e.target.value).digest('hex')
+    console.log(hash)
+    this.setState({ 
+      hideControls: hash !== "e7e9ec3723447a642f762b2b6a15cfd7",
+      password: e.target.value
 
+   })
+  }
 
   componentDidMount() {
+    setInterval(() => this.getData(), 3000)
+  }
+  getData = async () => {
 
-    let getData = async () => {
+    let response = await fetch('https://camperserver.herokuapp.com/latest', {
+      method: 'GET',
+      mode: 'cors'
+    })
 
-      let response = await fetch('https://camperserver.herokuapp.com/latest', {
-        method: 'GET',
-        mode: 'cors'
-      })
-
-      let targetTempResponse = await fetch('https://camperserver.herokuapp.com/targetTemp', {
-        method: 'GET',
-        mode: 'cors'
-      })
-      let targetTempData = await targetTempResponse.json()
+    let targetTempResponse = await fetch('https://camperserver.herokuapp.com/targetTemp', {
+      method: 'GET',
+      mode: 'cors'
+    })
+    let targetTempData = await targetTempResponse.json()
 
 
-      let data = await response.json()
-      console.log("app", data.temp)
-      this.setState({
-        humidity: data.humidity,
-        temperature: data.temp,
-        onBattery: data.onBattery,
-        targetTemp: targetTempData.value
-      })
+    let data = await response.json()
+    console.log("app", data.temp)
+    this.setState({
+      humidity: data.humidity,
+      temperature: data.temp,
+      onBattery: data.onBattery,
+      targetTemp: targetTempData.value,
+      hasLoaded: true
 
-      console.log(data)
-    }
+    })
 
-    getData()
-    setInterval(()=>getData(),3000)
+    console.log(data)
   }
 
   ToggleFarenheit = () => {
-    this.setState({isFarenheit: !this.state.isFarenheit})
+    this.setState({ isFarenheit: !this.state.isFarenheit })
   }
 
   render() {
+    if (!this.state.hasLoaded) {
+      return (<div>loading</div>)
+    }
+    let displayPassword
+    if (this.state.hideControls){
+      displayPassword = this.state.hideControls?'is-danger':'is-success'
+    }
+
     return (
       <div className="App">
         <section className="hero">
@@ -78,7 +97,8 @@ class App extends Component {
               Relative Humidity: {this.state.humidity} %
             </div>
             <Battery onBattery={this.state.onBattery} />
-            <Target isFarenheit={this.state.isFarenheit} targetTemp={this.state.targetTemp} />
+            <Target isFarenheit={this.state.isFarenheit} targetTemp={this.state.targetTemp} hidden={this.state.hideControls} password={this.state.password} />
+            <input className={`input ${displayPassword}`} type="password" onChange={this.handlePassword} placeholder="Enter password to unlock controls." />
           </div>
         </section>
       </div>

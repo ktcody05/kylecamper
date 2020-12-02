@@ -12,7 +12,7 @@ class Battery extends Component {
     
     render(){
 
-        let powerSource = this.props.onBattery == "True" ? "Battery" : "AC Outlet"
+        let powerSource = this.props.onBattery === "True" ? "Battery" : "AC Outlet"
         return(
             <div className="columns">
                 <div className="column is-4" > Power Source: </div>

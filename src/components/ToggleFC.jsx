@@ -1,12 +1,7 @@
 import React, {Component} from 'react'
-import TemperatureDisplay from './TemperatureDisplay'
 
 class ToggleFC extends Component {
 
-    constructor(){
-        super()
-
-    }
 
     render(){
         return(
