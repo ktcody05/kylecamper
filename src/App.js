@@ -3,6 +3,7 @@ import './bulma.css';
 import './App.css'
 import Temp from './components/Temp'
 import Battery from './components/Battery'
+import Target from './components/Target'
 
 class App extends Component {
 
@@ -25,12 +26,20 @@ class App extends Component {
         mode: 'cors'
       })
 
+      let targetTempResponse = await fetch('https://camperserver.herokuapp.com/targetTemp', {
+        method: 'GET',
+        mode: 'cors'
+      })
+      let targetTempData = await targetTempResponse.json()
+
+
       let data = await response.json()
       console.log("app", data.temp)
       this.setState({
         humidity: data.humidity,
         temperature: data.temp,
-        onBattery: data.onBattery
+        onBattery: data.onBattery,
+        targetTemp: targetTempData.value
       })
 
       console.log(data)
@@ -62,6 +71,7 @@ class App extends Component {
               Relative Humidity: {this.state.humidity} %
             </div>
             <Battery onBattery={this.state.onBattery} />
+            <Target targetTemp={this.state.targetTemp} />
           </div>
         </section>
       </div>
