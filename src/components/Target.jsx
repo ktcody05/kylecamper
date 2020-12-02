@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import TemperatureDisplay from './TemperatureDisplay'
 
 class Target extends Component {
 
@@ -14,7 +15,7 @@ class Target extends Component {
         let targetTemp = document.getElementById('targetTemp').value
         let password = document.getElementById('password').value
         console.log(targetTemp)
-        let response = await fetch(`http://localhost:5555/targetTemp?=${targetTemp}&key=${password}`, {
+        let response = await fetch(`https://camperserver.herokuapp.com:5555/targetTemp?=${targetTemp}&key=${password}`, {
             method: 'POST',
             mode: 'cors'
         })
@@ -24,7 +25,7 @@ class Target extends Component {
     render() {
         return (
             <div className="columns">
-                <div className="column is-4" > Target Temp: {this.props.targetTemp} </div>
+                <div className="column is-4" > Target Temp: <TemperatureDisplay isFarenheit={this.props.isFarenheit} temp={this.props.targetTemp} /> </div>
                 <div><input id='targetTemp' className="input" type="text" placeholder="Target Temp" /></div>
                 <div><input id='password' className="input" type="password" placeholder="Password" /></div>
                 <button onClick={() => this.handleSubmit()} className='button'>Submit</button>
