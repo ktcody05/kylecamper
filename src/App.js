@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 import './bulma.css';
 import './App.css'
-import Temp from './components/Temp'
+import CurrentTemperature from './components/CurrentTemperature'
 import Battery from './components/Battery'
+import ToggleFC from './components/ToggleFC';
 
 class App extends Component {
 
@@ -11,7 +12,8 @@ class App extends Component {
 
     this.state={
       humidity:0,
-      temperature:0
+      temperature:0,
+      isFarenheit: true
     }
   }
 
@@ -40,6 +42,11 @@ class App extends Component {
     setInterval(()=>getData(),3000)
   }
 
+  ToggleFarenheit = () => {
+    console.log('switch!')
+    this.setState({isFarenheit: !this.state.isFarenheit})
+  }
+
   render() {
     return (
       <div className="App">
@@ -57,7 +64,8 @@ class App extends Component {
         </section>
         <section className="section">
           <div className="container">
-            <Temp temp={this.state.temperature} />
+            <ToggleFC handleToggle={this.ToggleFarenheit} />
+            <CurrentTemperature isFarenheit={this.state.isFarenheit} temp={this.state.temperature} />
             <div>
               Relative Humidity: {this.state.humidity} %
             </div>
