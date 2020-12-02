@@ -3,11 +3,8 @@ import './bulma.css';
 import './App.css'
 import CurrentTemperature from './components/CurrentTemperature'
 import Battery from './components/Battery'
-<<<<<<< HEAD
 import ToggleFC from './components/ToggleFC';
-=======
 import Target from './components/Target'
->>>>>>> 7940a94e36dbe8665051bccc0b6187088f489ef6
 
 class App extends Component {
 
