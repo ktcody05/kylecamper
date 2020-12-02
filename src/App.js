@@ -62,7 +62,7 @@ class App extends Component {
     console.log(data)
   }
 
-  ToggleFarenheit = () => {
+  toggleFarenheit = () => {
     this.setState({ isFarenheit: !this.state.isFarenheit })
   }
 
@@ -81,18 +81,17 @@ class App extends Component {
           <div className="hero-body">
             <div className="container">
               <h1 className="title">
-                Camper Temperature
+                Camper Monitor
               </h1>
               <h2 className="subtitle">
-                Current Camper Temperature:
+                2018 Shasta Oasis
               </h2>
             </div>
           </div>
         </section>
         <section className="section">
           <div className="container">
-            <ToggleFC handleToggle={this.ToggleFarenheit} />
-            <CurrentTemperature isFarenheit={this.state.isFarenheit} temp={this.state.temperature} />
+            <CurrentTemperature isFarenheit={this.state.isFarenheit} temp={this.state.temperature} handleToggle={this.toggleFarenheit} />
             <div>
               Relative Humidity: {this.state.humidity} %
             </div>

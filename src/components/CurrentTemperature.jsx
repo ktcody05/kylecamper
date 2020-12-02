@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import TemperatureDisplay from './TemperatureDisplay'
+import ToggleFC from './ToggleFC'
 
 class CurrentTemperature extends Component {
 
@@ -17,7 +18,9 @@ class CurrentTemperature extends Component {
     render(){
         return(
             <div className="columns">
-                <div className="column is-4">Temperature: <TemperatureDisplay temp={this.props.temp} isFarenheit={this.props.isFarenheit} /></div>
+                <div className="column is-one-third has-text-weight-bold">Temperature</div>
+                <div className="column is-one-third"><TemperatureDisplay temp={this.props.temp} isFarenheit={this.props.isFarenheit} /></div>
+                <div className="column is-one-third"><ToggleFC handleToggle={this.props.handleToggle} /></div>
             </div>
         )
     }
