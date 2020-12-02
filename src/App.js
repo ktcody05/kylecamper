@@ -92,8 +92,9 @@ class App extends Component {
         <section className="section">
           <div className="container">
             <CurrentTemperature isFarenheit={this.state.isFarenheit} temp={this.state.temperature} handleToggle={this.toggleFarenheit} />
-            <div>
-              Relative Humidity: {this.state.humidity} %
+            <div className="columns">
+            <div className= "column is-one-third has-text-weight-bold">Relative Humidity </div>
+            <div className= "column is-one-third ">{this.state.humidity} %</div> 
             </div>
             <Battery onBattery={this.state.onBattery} />
             <Target isFarenheit={this.state.isFarenheit} targetTemp={this.state.targetTemp} hidden={this.state.hideControls} password={this.state.password} />

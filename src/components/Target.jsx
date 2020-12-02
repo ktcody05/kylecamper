@@ -12,18 +12,18 @@ class Target extends Component {
         }
     }
 
-    handleIncrease(){
-        let amount=this.props.isFarenheit?(5/9):1
-        let newTemp = parseFloat(this.state.requestedTemp)+amount
+    handleIncrease() {
+        let amount = this.props.isFarenheit ? (5 / 9) : 1
+        let newTemp = parseFloat(this.state.requestedTemp) + amount
         this.requestTarget(newTemp)
-        this.setState({requestedTemp:newTemp})
+        this.setState({ requestedTemp: newTemp })
     }
 
-    handleDecrease(){
-        let amount=this.props.isFarenheit?(5/9):1
-        let newTemp = parseFloat(this.state.requestedTemp)-amount
+    handleDecrease() {
+        let amount = this.props.isFarenheit ? (5 / 9) : 1
+        let newTemp = parseFloat(this.state.requestedTemp) - amount
         this.requestTarget(newTemp)
-        this.setState({requestedTemp:newTemp})
+        this.setState({ requestedTemp: newTemp })
     }
 
     async requestTarget(newTemp) {
@@ -36,13 +36,16 @@ class Target extends Component {
     }
 
     render() {
-        let isHidden=this.props.hidden?'is-hidden':''
+        let isHidden = this.props.hidden ? 'is-hidden' : ''
         return (
             <div className="columns">
-                <div className="column is-4" > Target Temp: <TemperatureDisplay isFarenheit={this.props.isFarenheit} temp={this.props.targetTemp} /> </div>
-                <button onClick={() => this.handleDecrease()} className={`button is-small ${isHidden}`}>-</button>
-                <TemperatureDisplay temp={this.state.requestedTemp} isFarenheit={this.props.isFarenheit} />
-                <button onClick={() => this.handleIncrease()} className={`button is-small ${isHidden}`}>+</button>
+                <div className="column is-one-third has-text-weight-bold" > Target Temp</div>
+                <div className="column is-one-third"><TemperatureDisplay isFarenheit={this.props.isFarenheit} temp={this.props.targetTemp} /></div>
+                <div className={`column is-one-third ${isHidden}`}>
+                    <button onClick={() => this.handleDecrease()} className={`button is-small`}>-</button>
+                    <TemperatureDisplay temp={this.state.requestedTemp} isFarenheit={this.props.isFarenheit} />
+                    <button onClick={() => this.handleIncrease()} className={`button is-small`}>+</button>
+                </div>
             </div>
         )
     }
