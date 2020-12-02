@@ -52,7 +52,6 @@ class App extends Component {
   }
 
   ToggleFarenheit = () => {
-    console.log('switch!')
     this.setState({isFarenheit: !this.state.isFarenheit})
   }
 
@@ -79,7 +78,7 @@ class App extends Component {
               Relative Humidity: {this.state.humidity} %
             </div>
             <Battery onBattery={this.state.onBattery} />
-            <Target targetTemp={this.state.targetTemp} />
+            <Target isFarenheit={this.state.isFarenheit} targetTemp={this.state.targetTemp} />
           </div>
         </section>
       </div>
