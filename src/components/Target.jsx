@@ -38,13 +38,13 @@ class Target extends Component {
     render() {
         let isHidden = this.props.hidden ? 'is-hidden' : ''
         return (
-            <div className="columns">
-                <div className="column is-one-third has-text-weight-bold" > Target Temp</div>
+            <div className="columns is-mobile">
+                <div className="column is-one-third has-text-weight-bold" > Target Temperature</div>
                 <div className="column is-one-third"><TemperatureDisplay isFarenheit={this.props.isFarenheit} temp={this.props.targetTemp} /></div>
                 <div className={`column is-one-third ${isHidden}`}>
-                    <button onClick={() => this.handleDecrease()} className={`button is-small`}>-</button>
-                    <TemperatureDisplay temp={this.state.requestedTemp} isFarenheit={this.props.isFarenheit} />
-                    <button onClick={() => this.handleIncrease()} className={`button is-small`}>+</button>
+                    <button onClick={() => this.handleIncrease()} className={`button`}>➕</button>
+                    <TemperatureDisplay temp= {this.state.requestedTemp} isFarenheit={this.props.isFarenheit} />
+                    <button onClick={() => this.handleDecrease()} className={`button`}>➖</button>
                 </div>
             </div>
         )

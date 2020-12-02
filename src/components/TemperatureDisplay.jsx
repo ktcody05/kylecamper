@@ -18,7 +18,7 @@ class TemperatureDisplay extends Component {
         }
 
         return(
-            <span>{displayTemp}</span>
+            <span>  {displayTemp}  </span>
         )
     }
 }

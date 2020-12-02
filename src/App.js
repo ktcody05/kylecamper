@@ -21,14 +21,14 @@ class App extends Component {
       password: ''
     }
   }
-  handlePassword = (e) =>{
+  handlePassword = (e) => {
     let hash = crypto.createHash('md5').update(e.target.value).digest('hex')
     console.log(hash)
-    this.setState({ 
+    this.setState({
       hideControls: hash !== "e7e9ec3723447a642f762b2b6a15cfd7",
       password: e.target.value
 
-   })
+    })
   }
 
   componentDidMount() {
@@ -71,34 +71,37 @@ class App extends Component {
       return (<div>loading</div>)
     }
     let displayPassword
-    if (this.state.hideControls){
-      displayPassword = this.state.hideControls?'is-danger':'is-success'
+    if (this.state.hideControls) {
+      displayPassword = this.state.hideControls ? 'is-danger' : 'is-success'
     }
 
     return (
       <div className="App">
         <section className="hero">
           <div className="hero-body">
-            <div className="container">
-              <h1 className="title">
-                Camper Monitor
+
+            <h1 className="title">
+              Camper Monitor
               </h1>
-              <h2 className="subtitle">
-                2018 Shasta Oasis
+            <h2 className="subtitle">
+              2018 Shasta Oasis
               </h2>
-            </div>
+
           </div>
         </section>
         <section className="section">
           <div className="container">
             <CurrentTemperature isFarenheit={this.state.isFarenheit} temp={this.state.temperature} handleToggle={this.toggleFarenheit} />
-            <div className="columns">
-            <div className= "column is-one-third has-text-weight-bold">Relative Humidity </div>
-            <div className= "column is-one-third ">{this.state.humidity} %</div> 
+            <Target isFarenheit={this.state.isFarenheit} targetTemp={this.state.targetTemp} hidden={this.state.hideControls} password={this.state.password} />
+            <div className="columns is-mobile">
+              <div className="column is-one-third has-text-weight-bold">Humidity </div>
+              <div className="column is-one-third ">{this.state.humidity} %</div>
             </div>
             <Battery onBattery={this.state.onBattery} />
-            <Target isFarenheit={this.state.isFarenheit} targetTemp={this.state.targetTemp} hidden={this.state.hideControls} password={this.state.password} />
-            <input className={`input ${displayPassword}`} type="password" onChange={this.handlePassword} placeholder="Enter password to unlock controls." />
+            <div className="columns is-mobile">
+              <div className="column is-one-third has-text-weight-bold">Unlock </div>
+              <div className="column is-two-third "><input className={`input ${displayPassword}`} type="password" onChange={this.handlePassword} placeholder="Enter password to unlock controls." /></div>
+            </div>
           </div>
         </section>
       </div>
